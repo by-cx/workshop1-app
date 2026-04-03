@@ -50,6 +50,13 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: echo "TAG_NAME=${{ github.event.inputs.version }}" >> $GITHUB_ENV
 
+      # Debug output, vytiskneme proměnné prostředí, které se hodí pro ladění tohoto workflow
+      - name: Debug info
+        run: |
+          echo "Username: ${{ github.actor }}"
+          echo "Image: $IMAGE"
+          echo "Image tag: ${{ env.TAG_NAME }}"
+
       # Login do GitHub docker image registry, používá přístup vygenerovaný GitHubem pro workflows
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
