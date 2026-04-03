@@ -79,4 +79,16 @@ jobs:
       
       # Zavoláme administraci, aby si stáhla nový image
       - name: Call pull+up endpoint
-        run: curl $PULL_ENDPOINT
+        run: |
+          RESPONSE=$(curl -s $PULL_ENDPOINT)
+          STATUS=$(echo "$RESPONSE" | jq -r '.status')
+          if [ "$STATUS" = "0" ]; then
+            echo "Pull endpoint call successful"
+          else
+            echo "Error: Pull endpoint returned status $STATUS"
+            echo "--- STDOUT ---"
+            echo "$RESPONSE" | jq -r '.stdout'
+            echo "--- STDERR ---"
+            echo "$RESPONSE" | jq -r '.stderr'
+            exit 1
+          fi
