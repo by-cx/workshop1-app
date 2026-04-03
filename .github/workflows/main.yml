@@ -35,7 +35,7 @@ jobs:
 
       # Otestujeme jestli je nastavený secret
       - name: Test that PULL_ENDPOINT is set
-        run: test -n "$PULL_ENDPOINT" || {echo "Secret PULL_ENDPOINT is not set!"; exit 1}
+        run: test -n "$PULL_ENDPOINT" || { echo "Secret PULL_ENDPOINT is not set!"; exit 1; }
 
       # Nastavíme image tag na main, pokud je zdrojem události git push
       - name: Get image tag on push
