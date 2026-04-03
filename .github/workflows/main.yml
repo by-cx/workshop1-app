@@ -40,7 +40,7 @@ jobs:
       # Nastavíme image tag na main, pokud je zdrojem události git push
       - name: Get image tag on push
         if: github.event_name == 'push'
-        run: echo "TAG_NAME=${{env.GITHUB_SHA}}" >> $GITHUB_ENV
+        run: echo "TAG_NAME=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
       # Nastavíme image tag na git commit ID pokud je zdrojem události release
       - name: Get image tag on release
         if: github.event_name == 'release'
